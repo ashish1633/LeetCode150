@@ -1,0 +1,19 @@
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        // Problem : https://leetcode.com/problems/contains-duplicate/
+        // three solutions
+        // first one is check dup for each element o(n2) time o(1) space
+        // second is sort array and then check neighbures and traverse ones 
+        // so it takes 0(nlogn) timea and o(1) space if exclude sorting space
+        // third one is use hashset, time o(n) and space o(n)
+        
+        Set<Integer> numSet = new HashSet<>();
+        for(int num : nums){
+            if(numSet.contains(num)){
+                return true;
+            }
+            numSet.add(num);
+        }
+        return false;
+    }
+}
