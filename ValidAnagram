@@ -1,0 +1,19 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        // Problem : https://leetcode.com/problems/valid-anagram/
+        // once soution is to create hashmap or counter array which took extra space
+        // but efficient time o(n) space o(k) where k is number of ascii char
+        // second solution is sort both the strings and compare 
+        // time o(nlogn) and space o(1) assume sorting takes o(1) space
+        if(s.length() != t.length()) 
+            return false;
+        int[] counter = new int[256];
+        for(int i=0; i<s.length();i++){
+            char sc= s.charAt(i);
+            char tc=t.charAt(i);
+            counter[sc]=counter[sc]+1;
+            counter[tc]=counter[tc]-1;
+        }
+        return !Arrays.stream(counter).filter(i->i!=0).findAny().isPresent();
+    }
+}
