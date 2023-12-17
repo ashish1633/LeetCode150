@@ -1,0 +1,25 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        // https://leetcode.com/problems/product-of-array-except-self/submissions/
+        // first approach is to create two array prefix and suffix
+        // prefix store one position behind multiplication and suffix stores one possition after multiplication
+        // and then use both and create ans array but this takes extra space
+        // so second apprach is to instead create two array use ans array 
+        // to store prefix and then use same for prefix 
+        // time o(n) with space o(1)
+        int n = nums.length;
+        int ans[] = new int[n];
+        Arrays.fill(ans, 1);
+        int curr = 1;
+        for(int i = 0; i < n; i++) {
+            ans[i] *= curr;
+            curr *= nums[i];
+        }
+        curr = 1;
+        for(int i = n - 1; i >= 0; i--) {
+            ans[i] *= curr;
+            curr *= nums[i];
+        }
+        return ans;
+    }
+}
