@@ -1,0 +1,25 @@
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // Problem : https://leetcode.com/problems/two-sum/
+        // brute force solution is to pick up each element and compare with rest
+        // which takes o(n2) time and o(1) space
+        // second is you can sort it and do it thorugh two pointer 
+        // which will take o(nlong) time and o(1) space
+        // third is you can use hash map and store all element as key and value is 
+        // index and and find the sum - element in map
+        // which takes time o(n) and space o(n)
+        
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0; i<nums.length;i++){
+            int diff = target - nums[i];
+            if(map.get(diff) != null){
+                int[] result = new int[2];
+                result[0]=map.get(diff) ;
+                result[1]=i;
+                return result;
+            }
+            map.put(nums[i],i);
+        }
+        return null;
+    }
+}
