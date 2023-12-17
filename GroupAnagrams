@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        // https://leetcode.com/problems/group-anagrams/submissions/
+        // sort all strings and create map and return values
+        // time complexity is o(n * mlogm)
+        // space complexity is o(n * m)
+        
+        Map<String,List<String>> map = new HashMap<>();
+        for(String s : strs){
+            char[] charArr = s.toCharArray();
+            Arrays.sort(charArr);
+            String sortedString = new String(charArr);
+            if(map.get(sortedString)==null){
+                map.put(sortedString, new ArrayList<>());
+            }
+            map.get(sortedString).add(s);
+        }
+        return new ArrayList<>(map.values());
+    }
+}
+
