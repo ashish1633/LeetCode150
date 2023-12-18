@@ -1,0 +1,33 @@
+class Solution {
+    // one solution is to store left max heights to one array and
+    // right max height to other array , this required to calculate how much water
+    // get stored at any postion = min(left max , right max) - height[curr]
+    // it takes exgtra space o(n) and time o(n)
+    // other approach is to use two pointer as it takes no extra space and 
+    // time complexity is o(n) 
+    // pointer will be moved based on the logic which takes min of leftMax and
+    // right max which used in below code
+    public int trap(int[] height) {
+        int left = 0, right = height.length - 1;
+        int leftMax = height[0], rightMax = height[height.length - 1];
+        int water = 0;
+        while (left < right) {
+            if (leftMax < rightMax) {
+                left++;
+                if (leftMax < height[left]) {
+                    leftMax = height[left];
+                } else {
+                    water += leftMax - height[left];
+                }
+            } else {
+                right--;
+                if (rightMax < height[right]) {
+                    rightMax = height[right];
+                } else {
+                    water += rightMax - height[right];
+                }
+            }
+        }
+        return water;
+    }
+}
