@@ -1,0 +1,46 @@
+class Solution {
+        // Problem : https://leetcode.com/problems/longest-repeating-character-replacement/submissions/
+        // sliding window problem , two pointer l and r
+        // move right pointer and check window size - max char of window <= k
+        // then we can get result size and increase windo size and check the condition
+        // we can store frequency of char in array
+        // time and space complexity is o(n) space may be o(26)
+    public int characterReplacement(String s, int k) {
+        
+        int length = s.length();
+        
+        if (length == 0) {
+            return 0;
+        }
+        
+        int[] charToCountMap = new int[26];
+        int i = 0;
+        int j = 0;
+        int maxCount = 0;
+        
+        while (i < length) {
+		    // Increase the count of the alphabet encountered at i
+            int count = ++charToCountMap[s.charAt(i)-'A'];
+            
+			// If the count of this alphabet is greater than the maxCount, then update
+			// otherwise remove this alphabet
+            if (count > maxCount) {
+                maxCount = count;
+            } else {
+                k--;
+            }
+            
+			// shorten the window by increasing j
+			// also reduce the count of alphabet at j
+            if (k < 0) {
+                --charToCountMap[s.charAt(j)-'A'];
+                k++;
+                j++;
+            }
+            
+            i++;
+        }
+        
+        return i-j;
+    }
+}
