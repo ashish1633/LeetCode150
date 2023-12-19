@@ -1,0 +1,19 @@
+class Solution {
+    // kind of two pointer 
+    // keep track of min price and max profit 
+    // o(n) time and o(1) space
+    public int maxProfit(int[] prices) {
+        if(prices.length==1){
+            return 0;
+        }
+        int maxProfit=0;
+        int minPrice=prices[0];
+        int profit=0;
+        for(int i=0;i<prices.length;i++){
+           minPrice=Math.min(minPrice,prices[i]);
+           profit=prices[i]-minPrice;
+           maxProfit=Math.max(maxProfit,profit);
+        }
+        return maxProfit;
+   }
+}
