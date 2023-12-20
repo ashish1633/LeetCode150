@@ -1,0 +1,27 @@
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        // first solution : check s1 size in s2 string and start with same s1 size window and increase window by 1 each time and compare the s1 this will take time complexity o(m*n)
+        // second solution is to take two hasmap and store s1 and s2 char and count respectively and then same sliding window approach compare this two maps so this will take o(26*n) whic is better than o(m*n)
+        // third solution is to we will compare two maps only once and maintain matches varialbe and update it as we move ahead in s2 so it will take o(26) + o(n) which is still o(n)
+        boolean flag= false;
+
+        Map<Character , Integer> m1 = new HashMap<>();
+        for (int i = 0; i < s1.length(); i++) {
+            char ch = s1.charAt(i);
+            m1.put( ch , m1.getOrDefault( ch , 0 )+1  );
+        }
+        for (int i = 0; i <=s2.length()-s1.length(); i++) {
+            Map<Character , Integer> m2 = new HashMap<>();
+            for (int j = i; j < i+s1.length(); j++) {
+                char ch = s2.charAt(j);
+                m2.put( ch , m2.getOrDefault( ch , 0 )+1  );
+            }
+            if( m1.equals(m2) ) {
+                flag=true;
+                break;
+            }
+        }
+        return flag ;
+        
+    }
+}
