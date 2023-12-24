@@ -1,0 +1,20 @@
+class Solution {
+    public boolean isValid(String s) {
+        Map<Character,Character> map = new HashMap<>();
+        map.put('(',')');
+        map.put('[',']');
+        map.put('{','}');
+        Stack<Character> stack = new Stack<>();
+        char[] charArray = s.toCharArray();
+        for(int i=0;i<s.length();i++){
+            if(map.containsKey(charArray[i])){
+                stack.push(charArray[i]);
+            } else if (stack.isEmpty()){
+                return false;
+            } else if(map.get(stack.pop())!=charArray[i]){
+                return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
