@@ -1,0 +1,54 @@
+class Solution {
+    class Pair {
+        int pos;
+        int speed;
+        Pair(int p, int s) { pos = p; speed = s; }
+    }
+    
+    public int carFleet(int target, int[] position, int[] speed) {
+        int n = speed.length;
+        double[] time = new double[n];
+        Pair[] pairs = new Pair[n];
+        Stack<Double> st = new Stack<Double>();
+        int fleet = 0;
+        
+        for(int i=0; i<n; i++) {
+            pairs[i] = new Pair(position[i], speed[i]);
+        }
+        
+        // Sort based on positions, as a car cannot go ahead of the car which is ahead of it
+        Arrays.sort(pairs, new Comparator<Pair>() {
+            @Override
+            public int compare(Pair p1, Pair p2) {
+                return p1.pos - p2.pos;
+            }
+        });
+        
+        // Calculate the time it will take for a car to reach the target
+        for(int i=0; i<n; i++) {
+            time[i] =  (double) (target - pairs[i].pos) / (double) pairs[i].speed;
+        }
+        
+        // maintain a monotonic stack, as all the cars behind a slow car cannot go past it
+        // so, all these cars which are faster than this one (based on the time they'll take to reach)
+        // will create one fleet
+        // but if we find a car even slower (going from end to back), it will become the new bottleneck
+        // for all the faster cars behind it, thus, creating a new fleet
+        
+        int i = n-1;
+        while(i>=0) {
+            if(st.isEmpty()) {
+                fleet++;
+            }
+            
+            if (st.isEmpty() || st.peek() >= time[i]) {
+                st.push(time[i]);
+                i--;
+            }else{
+                while(!st.isEmpty() && st.peek() < time[i]) st.pop();
+            }
+        }
+        
+        return fleet;
+    }
+}
